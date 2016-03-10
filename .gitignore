@@ -1,0 +1,5 @@
+/files/
+/api/app/config/parameters.yml
+/provision.sh
+/Vagrantfile
+/.vagrant
