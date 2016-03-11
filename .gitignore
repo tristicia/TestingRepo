@@ -1,5 +1,3 @@
-/files/
+/files/authorized_keys
 /api/app/config/parameters.yml
-/provision.sh
-/Vagrantfile
 /.vagrant
