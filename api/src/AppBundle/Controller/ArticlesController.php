@@ -21,10 +21,19 @@ class ArticlesController extends FOSRestController
           
           $request = $request->query->all();
           
-          $result = $this->container
+          $origin = $this->container
             ->get('bazinga_geocoder.geocoder')
             ->using('google_maps')
-            ->geocode($request->server->get('REMOTE_ADDR'));
+            ->geocode($request['origin']);
+            
+          $destination = $this->container
+            ->get('bazinga_geocoder.geocoder')
+            ->using('google_maps')
+            ->geocode($request['destination']);
+            
+            print_r($origin);
+            print_r($destination);
+            die();
           
           $test = array(
               'ArticleId:' => $id,

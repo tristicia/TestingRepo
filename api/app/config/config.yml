@@ -77,4 +77,14 @@ fos_rest:
         rules:
             - { path: ^/api, priorities: [ json ], fallback_format: json, prefer_extension: true }
             
-bazinga_geocoder: ~
+services:
+    acme_cache_adapter:
+        class: "Doctrine\\Common\\Cache\\ApcCache"
+
+bazinga_geocoder:
+    providers:
+        cache:
+            adapter:  acme_cache_adapter
+            provider: google_maps
+        google_maps: ~
+        
