@@ -3,28 +3,62 @@
 namespace AppBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use AppBundle\Entity\Article;
 
+/**
+ * @Route("/articles")
+ */
 class ArticlesController extends FOSRestController
 {
 
     /**
-     * Note: here the name is important
-     * get => the action is restricted to GET HTTP method
-     * Article => (without s) generate /articles/SOMETHING
-     * Action => standard things for symfony for a controller method which
-     *           generate an output
-     *
-     * it generates so the route GET .../articles/{id}
+     * return array()
      */
-    public function getArticlesAction()
+    public function getArticlesAction(Request $request, $id)
       {
+          
+          $request = $request->query->all();
+          
+          $result = $this->container
+            ->get('bazinga_geocoder.geocoder')
+            ->using('google_maps')
+            ->geocode($request->server->get('REMOTE_ADDR'));
+          
+          $test = array(
+              'ArticleId:' => $id,
+              'Origin:' => $request['origin'],
+              'Destination:' => $request['destination']
+          );
+          
           $articles = $this
               ->getDoctrine()
               ->getRepository('AppBundle:Article')
-              ->findAll();
+              ->find($id);
   
-          return $articles;
+          return $test;
+      }
+      
+      public function postArticlesAction(Request $request, $id)
+      {
+          
+          $origin = $request->query->get('origin');
+          $destination = $request->query->get('destination');
+          
+          $test = array(
+              'ArticleId:' => $id,
+              'Origin:' => $origin,
+              'Destination:' => $destination
+              
+          );
+          
+          $articles = $this
+              ->getDoctrine()
+              ->getRepository('AppBundle:Article')
+              ->find($id);
+  
+          return $test;
       }
 
 }
