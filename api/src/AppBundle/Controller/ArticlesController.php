@@ -31,15 +31,18 @@ class ArticlesController extends FOSRestController
             ->using('google_maps')
             ->geocode($request['destination']);
             
-            print_r($origin);
-            print_r($destination);
+            $originanddestination = array();
+            $originanddestination['originAddress'] = $origin;
+            $originanddestination['destinationAddress'] = $destination;
+            
+            return $originanddestination;
+            
+            echo 'Origin: ';
+            print_r($originAddress);
+            echo "\n\n\n\n\n\n\n\n\n\n";
+            echo 'Destination: ';
+            print_r($destinationAddress);
             die();
-          
-          $test = array(
-              'ArticleId:' => $id,
-              'Origin:' => $request['origin'],
-              'Destination:' => $request['destination']
-          );
           
           $articles = $this
               ->getDoctrine()
