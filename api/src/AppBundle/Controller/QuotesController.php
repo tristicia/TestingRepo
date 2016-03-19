@@ -1,29 +1,36 @@
 <?php
 
-namespace Appbundle\Controller;
+namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use FOS\RestBundle\Controller\FOSRestController;
 use Symfony\Component\HttpFoundation\Request;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-use AppBundle\Entity\Quote;
+use Symfony\Component\HttpFoundation\Response;
 
-/**
- *@Route("/quotes")
- */
- class QuotesController extends FOSRestController
- {
-     
-     /**
-      *return array()
-      */
-      public function getQuotesAction(Request $request)
-        {
+    /**
+     * @Route("/quote")
+     */
+class QuotesController extends FOSRestController
+{
+
+    public function getQuoteAction(Request $request)
+    {
+        
+        $requestParams = $request->query->all();
+        
+        $response = array();
+          
+        $response['origin'] = $this->container
+          ->get('bazinga_geocoder.geocoder')
+          ->using('google_maps')
+          ->geocode($requestParams['origin']);
             
-            $request = $request->query->all();
-            
-            $quote = new Quote($request);
-            
-            return $quote;
-            
-        }
- }
+        $response['destination'] = $this->container
+          ->get('bazinga_geocoder.geocoder')
+          ->using('google_maps')
+          ->geocode($requestParams['destination']);
+        
+        return $response;
+    }
+}

@@ -1,14 +1,4 @@
-blog_api_articles:
-    type: rest
-    resource: "@AppBundle/Controller/ArticlesController.php"
-    name_prefix:  api_articles_
-
 api_quotes:
     type: rest
     resource: "@AppBundle/Controller/QuotesController.php"
     name_prefix:  api_quotes_
-
-api_api_default:
-    type: rest
-    resource: "@AppBundle/Controller/DefaultController.php"
-    name_prefix: api_default_
