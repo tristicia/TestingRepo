@@ -4,11 +4,11 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
     quote:
         class: AppBundle\Utils\Quote
         
-    quote_calculator:
-        class: AppBundle\Utils\QuoteCalculator
+    quote_coordinates:
+        class: AppBundle\Utils\QuoteCoordinates
+        
+    polyline_generator:
+        class: AppBundle\Utils\PolylineGenerator

@@ -16,7 +16,17 @@ class MapController extends Controller
     {
         $map = $this->get('ivory_google_map.map');
         
-        //return $this->render($map);
+        $geocoder = $this->container
+          ->get('bazinga_geocoder.geocoder')
+          ->using('google_maps');
+        
+        $coordinates = $this->get('quote_coordinates');
+        $coordinates->geocodeRequest($request, $geocoder);
+        
+        $polyline = $this->get('polyline_generator');
+        $polyline->createPolyline($coordinates);
+        
+        $map->addPolyline($polyline->getPolyline());
         
         return $this->render('AppBundle:Map:MapView.html.twig', array(
             'map' => $map
