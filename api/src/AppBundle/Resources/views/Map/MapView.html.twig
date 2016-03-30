@@ -2,6 +2,47 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Welcome to the Map from the Bundle!</h1>
-    {{ google_map(map) }}
+    <title>Simple Map</title>
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -25.3615289, lng: 133.6030422},
+          disableDefaultUI: true,
+          zoom: 2
+        });
+        
+        var polylineCoordinates = [
+          {lat: {{ origin.latitude }}, lng: {{ origin.longitude }}},
+          {lat: {{ destination.latitude }}, lng: {{ destination.longitude }}}
+        ];
+        
+        var polyline = new google.maps.Polyline({
+          path: polylineCoordinates,
+          geodesic: true,
+          strokeColor: '#FF0000',
+          strokeOpacity: 1.0,
+          strokeWeight: 2
+        });
+
+        polyline.setMap(map);
+      }
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCx6oYyj0ld_7BNALexljx4fksShZQLc_0&callback=initMap"
+    async defer></script>
 {% endblock %}  

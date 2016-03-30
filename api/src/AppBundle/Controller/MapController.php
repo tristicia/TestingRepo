@@ -23,14 +23,7 @@ class MapController extends Controller
         $coordinates = $this->get('quote_coordinates');
         $coordinates->geocodeRequest($request, $geocoder);
         
-        $polyline = $this->get('polyline_generator');
-        $polyline->createPolyline($coordinates);
-        
-        $map->addPolyline($polyline->getPolyline());
-        
-        return $this->render('AppBundle:Map:MapView.html.twig', array(
-            'map' => $map
-        ));
+        return $this->render('AppBundle:Map:MapView.html.twig', $coordinates->getCoordinates());
     }
     
 }
