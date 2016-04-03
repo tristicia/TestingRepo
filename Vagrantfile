@@ -7,8 +7,6 @@ Vagrant.configure("2") do |config|
   
   #config.vm.synced_folder "www/", "/var/www/html/"
   config.vm.synced_folder "api/", "/var/www/api/"
-  config.vm.synced_folder "finance/", "/var/www/finance/"
-  config.vm.synced_folder "rest/", "/var/www/rest/"
   
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]

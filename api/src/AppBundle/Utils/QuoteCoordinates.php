@@ -7,14 +7,9 @@ use Symfony\Component\HttpFoundation\Request;
 class QuoteCoordinates
 {
      /**
-     * @var array
+     * 
      */
-    protected $originCoordinates;
-    
-    /**
-     * @var array
-     */
-    protected $destinationCoordinates;
+    protected $coordinates;
     
     /**
      * @var Request
@@ -28,23 +23,13 @@ class QuoteCoordinates
 
 
     /**
-     * Get originCoordinates
+     * Get coordinates
      *
      * @return array
      */
-    public function getOriginCoordinates()
+    public function getcoordinates()
     {
-        return $this->originCoordinates;
-    }
-    
-    /**
-     * Get destinationCoordinates
-     *
-     * @return array
-     */
-    public function getDestinationCoordinates()
-    {
-        return $this->destinationCoordinates;
+        return $this->coordinates;
     }
     
     /**
@@ -55,14 +40,22 @@ class QuoteCoordinates
         $this->request = $request->query->all();
         $this->geocoder = $geocoder;
         
-        $this->originCoordinates = $geocoder
-            ->geocode($this->request['origin'])
-            ->first();
-            
-        $this->destinationCoordinates = $geocoder
-            ->geocode($this->request['destination'])
-            ->first();
+        $origin = $geocoder->geocode($this->request['origin'])
+                      ->first();
+        $destination = $geocoder->geocode($this->request['destination'])
+                      ->first();
         
-    }    
+        $this->coordinates['origin']['latitude'] = $origin
+            ->getLatitude();
+            
+        $this->coordinates['origin']['longitude'] = $origin
+            ->getLongitude();
+            
+        $this->coordinates['destination']['latitude'] = $destination
+            ->getLatitude();
+            
+        $this->coordinates['destination']['longitude'] = $destination
+            ->getLongitude();
+    }
     
 }

@@ -12,3 +12,8 @@ services:
         
     polyline_generator:
         class: AppBundle\Utils\PolylineGenerator
+        
+    app.exception_listener:
+        class: AppBundle\EventListener\ExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception }
