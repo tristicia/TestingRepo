@@ -14,7 +14,7 @@ class MapController extends Controller
     
     public function indexAction(Request $request)
     {
-        $map = $this->get('ivory_google_map.map');
+        // $map = $this->get('ivory_google_map.map');
         
         $geocoder = $this->container
           ->get('bazinga_geocoder.geocoder')

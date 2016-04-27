@@ -7,6 +7,7 @@ Vagrant.configure("2") do |config|
   
   #config.vm.synced_folder "www/", "/var/www/html/"
   config.vm.synced_folder "api/", "/var/www/api/"
+  #config.vm.synced_folder "api2/", "/var/www/api2/"
   
   config.vm.provider "virtualbox" do |v|
     v.customize ["modifyvm", :id, "--cpuexecutioncap", "50"]
@@ -15,7 +16,7 @@ Vagrant.configure("2") do |config|
   end
   
   config.vm.provision :shell, path: "provision.sh"
-  config.vm.provision "file", source: "files/.bashrc", destination: "~/.bashrc"
+  #config.vm.provision "file", source: "files/.bashrc", destination: "~/.bashrc"
   config.vm.provision "file", source: "files/.tmux.conf", destination: "~/.tmux.conf"
   
 end

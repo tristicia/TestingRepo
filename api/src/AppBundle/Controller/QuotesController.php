@@ -9,7 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
     /**
-     * @Route("/quote")
+     * @Route("/api/quote")
      */
 class QuotesController extends FOSRestController
 {
